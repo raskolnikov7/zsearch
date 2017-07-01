@@ -22,11 +22,9 @@ public class OrganizationIndexBuilder implements IndexBuilder {
 
 	@Override
 	public void buildIndex(String filePath) throws FileNotFoundException, IOException, ParseException {
-		// organizationRepository.deleteAll();
 		JSONParser parser = new JSONParser();
 
 		JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(filePath));
-		// List<User> organizations = new ArrayList<User>();
 		for (Object o : jsonArray) {
 			Organization organization = new Organization();
 			JSONObject jsonUser = (JSONObject) o;
@@ -48,11 +46,7 @@ public class OrganizationIndexBuilder implements IndexBuilder {
 
 			organization.setTag(tags.toString());
 			organizationRepository.save(organization);
-			// organizations.add(organization);
 		}
-
-		// organizationRepository.save(organizations);
-		// User aUser = organizationRepository.findOne((long) 1);
 
 		System.out.println("ORGANIZATIONS ===============> " + organizationRepository.count());
 
