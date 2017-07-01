@@ -37,7 +37,7 @@ mvn package -Dmaven.test.skip=true
 To execute jar from command line, Under /target/
 
 ```
-java -jar demo-zsearch.jar
+java -jar zsearch-1.0.jar
 ```
 
 

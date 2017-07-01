@@ -1,9 +1,9 @@
 package com.zendesk.search.service;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -22,10 +22,10 @@ public class OrganizationIndexBuilder implements IndexBuilder {
 	private OrganizationRepository organizationRepository;
 
 	@Override
-	public void buildIndex(File file) throws FileNotFoundException, IOException, ParseException {
+	public void buildIndex(InputStream file) throws FileNotFoundException, IOException, ParseException {
 		JSONParser parser = new JSONParser();
 
-		JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(file));
+		JSONArray jsonArray = (JSONArray) parser.parse(new InputStreamReader(file));
 		for (Object o : jsonArray) {
 			Organization organization = new Organization();
 			JSONObject jsonUser = (JSONObject) o;

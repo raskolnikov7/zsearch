@@ -1,6 +1,5 @@
 package com.zendesk.search.service;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -10,7 +9,7 @@ import java.util.List;
 
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.CaseFormat;
@@ -47,19 +46,15 @@ public class SearchService {
 	@Autowired
 	OrganizationIndexBuilder organizationIndexBuilder;
 
-	@Value("${users.file.path}")
-	private String usersFilePath;
-
-	@Value("${tickets.file.path}")
-	private String ticketsFilePath;
-
-	@Value("${organizations.file.path}")
-	private String organizationsFilePath;
+	@Autowired
+	ResourceLoader resourceLoader;
 
 	public void buildIndexes() throws FileNotFoundException, IOException, ParseException {
-		userIndexBuilder.buildIndex(new File(usersFilePath));
-		ticketIndexBuilder.buildIndex(new File(ticketsFilePath));
-		organizationIndexBuilder.buildIndex(new File(organizationsFilePath));
+		resourceLoader.getResource("").getInputStream();
+
+		userIndexBuilder.buildIndex(resourceLoader.getResource("users.json").getInputStream());
+		ticketIndexBuilder.buildIndex(resourceLoader.getResource("tickets.json").getInputStream());
+		organizationIndexBuilder.buildIndex(resourceLoader.getResource("organizations.json").getInputStream());
 
 	}
 
