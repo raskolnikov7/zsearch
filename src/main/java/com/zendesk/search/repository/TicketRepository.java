@@ -6,7 +6,7 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 
 import com.zendesk.search.model.Ticket;
 
-public interface TicketRepository extends ElasticsearchRepository<Ticket, Long> {
+public interface TicketRepository extends ElasticsearchRepository<Ticket, String> {
 	List<Ticket> findByType(String type);
 
 	List<Ticket> findByUrl(String url);

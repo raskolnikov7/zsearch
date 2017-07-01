@@ -68,7 +68,7 @@ public class SearchService {
 		}
 		if (repoType == 2) {
 			if (searchTerm.equals("_id")) {
-				Ticket ticket = ticketRepository.findOne(Long.parseLong(searchValue));
+				Ticket ticket = ticketRepository.findOne(searchValue);
 				result = (ticket != null) ? ticket.toString() : Constants.NOTHING_FOUND;
 			}
 
