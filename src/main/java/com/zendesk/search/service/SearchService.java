@@ -139,11 +139,11 @@ public class SearchService {
 			return ((List<Ticket>) Lists.newArrayList(ticketRepository.findAll())).toString();
 		if (repo == 3)
 			return ((List<Organization>) Lists.newArrayList(organizationRepository.findAll())).toString();
-		return "Not valid";
+		return Constants.NOTHING_FOUND;
 	}
 
 	private void listFields(Class pojo, String name) {
-		System.out.println("---------------------------\n\n");
+		System.out.println(Constants.LINE);
 		System.out.println("Search " + name + " with :");
 		Field[] allFields = pojo.getDeclaredFields();
 		for (Field field : allFields) {
