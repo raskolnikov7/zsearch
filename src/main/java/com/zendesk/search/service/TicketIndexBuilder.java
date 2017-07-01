@@ -40,10 +40,10 @@ public class TicketIndexBuilder implements IndexBuilder {
 			ticket.setCreatedAt((String) jsonUser.get("created_at"));
 
 			ticket.setHasIncidents((boolean) jsonUser.get("has_incidents"));
-			ticket.setDescription((String) jsonUser.get("descripion"));
+			ticket.setDescription((String) jsonUser.get("description"));
 			ticket.setStatus((String) jsonUser.get("status"));
 			ticket.setPriority((String) jsonUser.get("priority"));
-			ticket.setDueAt((String) jsonUser.get("dueAt"));
+			ticket.setDueAt((String) jsonUser.get("due_at"));
 			ticket.setVia((String) jsonUser.get("via"));
 
 			ticket.setOrganizationId((Long) jsonUser.get("organization_id"));
