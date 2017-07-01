@@ -28,6 +28,10 @@ public class SearchService {
 	@Autowired
 	private UserRepository userRepository;
 
+	public UserRepository getUserRepository() {
+		return userRepository;
+	}
+
 	@Autowired
 	private TicketRepository ticketRepository;
 
