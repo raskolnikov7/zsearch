@@ -6,4 +6,5 @@ public class Constants {
 	public final static String STR_FORMAT = "%-30s%-10s\n";
 	public final static String BOOLEAN_FORMAT = "%-30s%-10b\n";
 	public final static String LINE = "------------------------------------------------------------------------------------------\n";
+	public static final String INVALID_CHOICE = "Not a valid input!";
 }

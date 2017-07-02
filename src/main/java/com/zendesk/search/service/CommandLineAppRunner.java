@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.zendesk.search.util.Constants;
+
 @Component
 public class CommandLineAppRunner implements CommandLineRunner {
 
@@ -62,13 +64,17 @@ public class CommandLineAppRunner implements CommandLineRunner {
 						System.out.println(result);
 					}
 
-				}
-				if (searchType == 2) {
+				} else if (searchType == 2) {
 					searchService.listSearchTerms();
+				} else {
+					System.out.println(Constants.INVALID_CHOICE);
 				}
 				System.out.println("-----------\n");
 			}
 
+		} catch (NumberFormatException e) {
+			System.out.println(Constants.INVALID_CHOICE);
+			cli();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
