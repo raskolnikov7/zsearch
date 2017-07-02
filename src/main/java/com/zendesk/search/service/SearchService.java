@@ -51,7 +51,6 @@ public class SearchService {
 	ResourceLoader resourceLoader;
 
 	public void buildIndexes() throws FileNotFoundException, IOException, ParseException {
-		resourceLoader.getResource("").getInputStream();
 
 		userIndexBuilder.buildIndex(resourceLoader.getResource("users.json").getInputStream());
 		ticketIndexBuilder.buildIndex(resourceLoader.getResource("tickets.json").getInputStream());
@@ -65,6 +64,17 @@ public class SearchService {
 
 	}
 
+	/**
+	 * Dynamically loads search method from a search repository
+	 * 
+	 * @param repoType
+	 *            repository to search
+	 * @param searchTerm
+	 *            search term
+	 * @param searchValue
+	 *            value
+	 * @return
+	 */
 	public String executeSearch(int repoType, String searchTerm, String searchValue) {
 		String result = null;
 

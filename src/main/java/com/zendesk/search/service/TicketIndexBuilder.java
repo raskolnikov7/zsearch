@@ -23,11 +23,9 @@ public class TicketIndexBuilder implements IndexBuilder {
 
 	@Override
 	public void buildIndex(InputStream file) throws FileNotFoundException, IOException, ParseException {
-		// ticketRepository.deleteAll();
 		JSONParser parser = new JSONParser();
 
 		JSONArray jsonArray = (JSONArray) parser.parse(new InputStreamReader(file));
-		// List<User> tickets = new ArrayList<User>();
 		for (Object o : jsonArray) {
 			Ticket ticket = new Ticket();
 			JSONObject jsonUser = (JSONObject) o;
@@ -55,11 +53,7 @@ public class TicketIndexBuilder implements IndexBuilder {
 
 			ticket.setTag(tags.toString());
 			ticketRepository.save(ticket);
-			// tickets.add(ticket);
 		}
-
-		// ticketRepository.save(tickets);
-		// User aUser = ticketRepository.findOne((long) 1);
 
 		System.out.println("TICKETS ===============> " + ticketRepository.count());
 

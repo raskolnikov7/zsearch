@@ -27,7 +27,6 @@ public class UserIndexBuilder implements IndexBuilder {
 		JSONParser parser = new JSONParser();
 
 		JSONArray jsonArray = (JSONArray) parser.parse(new InputStreamReader(fileInputStream));
-		// List<User> users = new ArrayList<User>();
 		for (Object o : jsonArray) {
 			User user = new User();
 			JSONObject jsonUser = (JSONObject) o;
@@ -60,21 +59,11 @@ public class UserIndexBuilder implements IndexBuilder {
 
 			JSONArray tags = (JSONArray) jsonUser.get("tags");
 
-			// List<String> tagList = new ArrayList<String>();
-			// for (Object tagObj : tags) {
-			// tagList.add((String) tagObj);
-			// }
-			// user.setTag(tagList);
-
 			user.setTags(tags.toString());
 			user.setSuspended((boolean) jsonUser.get("suspended"));
 			user.setRole((String) jsonUser.get("role"));
 			userRepository.save(user);
-			// users.add(user);
 		}
-
-		// userRepository.save(users);
-		// User aUser = userRepository.findOne((long) 1);
 
 		System.out.println("USERS ===============> " + userRepository.count());
 
