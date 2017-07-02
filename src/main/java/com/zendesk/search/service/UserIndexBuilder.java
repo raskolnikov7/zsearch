@@ -60,7 +60,13 @@ public class UserIndexBuilder implements IndexBuilder {
 
 			JSONArray tags = (JSONArray) jsonUser.get("tags");
 
-			user.setTag(tags.toString());
+			// List<String> tagList = new ArrayList<String>();
+			// for (Object tagObj : tags) {
+			// tagList.add((String) tagObj);
+			// }
+			// user.setTag(tagList);
+
+			user.setTags(tags.toString());
 			user.setSuspended((boolean) jsonUser.get("suspended"));
 			user.setRole((String) jsonUser.get("role"));
 			userRepository.save(user);

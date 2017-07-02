@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.parser.ParseException;
@@ -66,7 +67,12 @@ public class SearchService {
 
 	public String executeSearch(int repoType, String searchTerm, String searchValue) {
 		String result = null;
+
 		if (repoType == 1) {
+			if (!listFields(User.class).contains(searchTerm)) {
+				printFields(listFields(User.class), "Users");
+				return Constants.NOTHING_FOUND;
+			}
 			if (searchTerm.equals("_id")) {
 				User user = userRepository.findOne(Long.parseLong(searchValue));
 				result = (user != null) ? user.toString() : Constants.NOTHING_FOUND;
@@ -74,10 +80,16 @@ public class SearchService {
 
 			else {
 				Object resultObj = executeTermSearch(userRepository, searchTerm, searchValue);
-				result = (resultObj != null) ? ((List<User>) resultObj).toString() : Constants.NOTHING_FOUND;
+				result = (resultObj != null && !((List<User>) resultObj).isEmpty())
+						? ((List<User>) resultObj).toString() : Constants.NOTHING_FOUND;
 			}
 		}
 		if (repoType == 2) {
+			if (!listFields(Ticket.class).contains(searchTerm)) {
+				printFields(listFields(Ticket.class), "Tickets");
+				return Constants.NOTHING_FOUND;
+			}
+
 			if (searchTerm.equals("_id")) {
 				Ticket ticket = ticketRepository.findOne(searchValue);
 				result = (ticket != null) ? ticket.toString() : Constants.NOTHING_FOUND;
@@ -85,16 +97,23 @@ public class SearchService {
 
 			else {
 				Object resultObj = executeTermSearch(ticketRepository, searchTerm, searchValue);
-				result = (resultObj != null) ? ((List<Ticket>) resultObj).toString() : Constants.NOTHING_FOUND;
+				result = (resultObj != null && !((List<Ticket>) resultObj).isEmpty())
+						? ((List<Ticket>) resultObj).toString() : Constants.NOTHING_FOUND;
 			}
 		}
 		if (repoType == 3) {
+			if (!listFields(Organization.class).contains(searchTerm)) {
+				printFields(listFields(Organization.class), "Organizations");
+				return Constants.NOTHING_FOUND;
+			}
+
 			if (searchTerm.equals("_id")) {
 				Organization organization = organizationRepository.findOne(Long.parseLong(searchValue));
 				result = (organization != null) ? organization.toString() : Constants.NOTHING_FOUND;
 			} else {
 				Object resultObj = executeTermSearch(organizationRepository, searchTerm, searchValue);
-				result = (resultObj != null) ? ((List<Organization>) resultObj).toString() : Constants.NOTHING_FOUND;
+				result = (resultObj != null && !((List<Organization>) resultObj).isEmpty())
+						? ((List<Organization>) resultObj).toString() : Constants.NOTHING_FOUND;
 			}
 		}
 
@@ -141,20 +160,31 @@ public class SearchService {
 		return Constants.NOTHING_FOUND;
 	}
 
-	private void listFields(Class pojo, String name) {
+	private List<String> listFields(Class pojo) {
 		System.out.println(Constants.LINE);
-		System.out.println("Search " + name + " with :");
+		List<String> fieldNames = new ArrayList<String>();
 		Field[] allFields = pojo.getDeclaredFields();
 		for (Field field : allFields) {
-			System.out.println("\t" + CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, field.getName()));
+			if (field.getName().equals("id"))
+				fieldNames.add("_id");
+			else
+				fieldNames.add(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, field.getName()));
 		}
+		return fieldNames;
+	}
 
+	private void printFields(List<String> fields, String name) {
+		System.out.println("Search " + name + " with :");
+
+		for (String field : fields) {
+			System.out.println("\t" + field);
+		}
 	}
 
 	public void listSearchTerms() {
-		listFields(User.class, "Users");
-		listFields(Ticket.class, "Tickets");
-		listFields(Organization.class, "Organization");
+		printFields(listFields(User.class), "Users");
+		printFields(listFields(Ticket.class), "Tickets");
+		printFields(listFields(Organization.class), "Organizations");
 
 	}
 }

@@ -139,12 +139,12 @@ public class User {
 		this.organizationId = organizationId;
 	}
 
-	public String getTag() {
-		return tag;
+	public String getTags() {
+		return tags;
 	}
 
-	public void setTag(String tag) {
-		this.tag = tag;
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 
 	public boolean isSuspended() {
@@ -182,8 +182,9 @@ public class User {
 	private Long organizationId;
 	private boolean suspended;
 	private String role;
+
 	@Field(type = FieldType.String)
-	private String tag;
+	private String tags;
 
 	@Override
 	public String toString() {
@@ -210,7 +211,7 @@ public class User {
 		printStr.append(String.format(Constants.STR_FORMAT, "signature", signature));
 		printStr.append(String.format(Constants.LONG_FORMAT, "organization_id", organizationId));
 		printStr.append(String.format(Constants.BOOLEAN_FORMAT, "suspended", suspended));
-		printStr.append(String.format(Constants.STR_FORMAT, "tag", tag));
+		printStr.append(String.format(Constants.STR_FORMAT, "tags", tags));
 		printStr.append(String.format(Constants.STR_FORMAT, "role", role));
 
 		return printStr.toString();

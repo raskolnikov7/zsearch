@@ -35,7 +35,9 @@ public interface UserRepository extends ElasticsearchRepository<User, Long> {
 
 	List<User> findBySignature(String signature);
 
-	List<User> findByTag(String tag);
+	List<User> findByTags(String tags);
+
+	List<User> findByRole(String role);
 
 	List<User> findByOrganizationId(Long organizationId);
 }
