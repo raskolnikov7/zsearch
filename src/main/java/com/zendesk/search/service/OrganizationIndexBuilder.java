@@ -23,6 +23,7 @@ public class OrganizationIndexBuilder implements IndexBuilder {
 
 	@Override
 	public void buildIndex(InputStream file) throws FileNotFoundException, IOException, ParseException {
+		organizationRepository.deleteAll();
 		JSONParser parser = new JSONParser();
 
 		JSONArray jsonArray = (JSONArray) parser.parse(new InputStreamReader(file));
