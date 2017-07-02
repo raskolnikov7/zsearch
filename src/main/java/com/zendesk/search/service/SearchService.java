@@ -64,17 +64,6 @@ public class SearchService {
 
 	}
 
-	/**
-	 * Dynamically loads search method from a search repository
-	 * 
-	 * @param repoType
-	 *            repository to search
-	 * @param searchTerm
-	 *            search term
-	 * @param searchValue
-	 *            value
-	 * @return
-	 */
 	public String executeSearch(int repoType, String searchTerm, String searchValue) {
 		String result = null;
 
@@ -130,6 +119,15 @@ public class SearchService {
 		return result;
 	}
 
+	/**
+	 * Dynamically load search method via reflection based on search term and
+	 * execute search
+	 * 
+	 * @param obj
+	 * @param searchTerm
+	 * @param searchValue
+	 * @return
+	 */
 	public Object executeTermSearch(Object obj, String searchTerm, String searchValue) {
 		Object retObj = null;
 		try {
