@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -27,6 +29,7 @@ public class OrganizationIndexBuilder implements IndexBuilder {
 		JSONParser parser = new JSONParser();
 
 		JSONArray jsonArray = (JSONArray) parser.parse(new InputStreamReader(file));
+		List<Organization> organizations = new ArrayList<Organization>();
 		for (Object o : jsonArray) {
 			Organization organization = new Organization();
 			JSONObject jsonUser = (JSONObject) o;
@@ -47,9 +50,9 @@ public class OrganizationIndexBuilder implements IndexBuilder {
 			JSONArray tags = (JSONArray) jsonUser.get("tags");
 
 			organization.setTag(tags.toString());
-			organizationRepository.save(organization);
+			organizations.add(organization);
 		}
-
+		organizationRepository.save(organizations);
 		System.out.println("ORGANIZATIONS ===============> " + organizationRepository.count());
 
 	}

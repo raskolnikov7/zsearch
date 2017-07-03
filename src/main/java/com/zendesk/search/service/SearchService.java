@@ -52,7 +52,7 @@ public class SearchService {
 
 	public void buildIndexes() throws FileNotFoundException, IOException, ParseException {
 
-		userIndexBuilder.buildIndex(resourceLoader.getResource("users.json").getInputStream());
+		userIndexBuilder.buildIndex(resourceLoader.getResource("ten_thousand_users.json").getInputStream());
 		ticketIndexBuilder.buildIndex(resourceLoader.getResource("tickets.json").getInputStream());
 		organizationIndexBuilder.buildIndex(resourceLoader.getResource("organizations.json").getInputStream());
 

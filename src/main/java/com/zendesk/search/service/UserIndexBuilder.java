@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -27,6 +29,7 @@ public class UserIndexBuilder implements IndexBuilder {
 		JSONParser parser = new JSONParser();
 
 		JSONArray jsonArray = (JSONArray) parser.parse(new InputStreamReader(fileInputStream));
+		List<User> users = new ArrayList<User>();
 		for (Object o : jsonArray) {
 			User user = new User();
 			JSONObject jsonUser = (JSONObject) o;
@@ -62,9 +65,9 @@ public class UserIndexBuilder implements IndexBuilder {
 			user.setTags(tags.toString());
 			user.setSuspended((boolean) jsonUser.get("suspended"));
 			user.setRole((String) jsonUser.get("role"));
-			userRepository.save(user);
+			users.add(user);
 		}
-
+		userRepository.save(users);
 		System.out.println("USERS ===============> " + userRepository.count());
 
 	}
