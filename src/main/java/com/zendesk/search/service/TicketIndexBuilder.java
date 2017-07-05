@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -27,6 +29,7 @@ public class TicketIndexBuilder implements IndexBuilder {
 		JSONParser parser = new JSONParser();
 
 		JSONArray jsonArray = (JSONArray) parser.parse(new InputStreamReader(file));
+		List<Ticket> tickets = new ArrayList();
 		for (Object o : jsonArray) {
 			Ticket ticket = new Ticket();
 			JSONObject jsonUser = (JSONObject) o;
@@ -53,9 +56,9 @@ public class TicketIndexBuilder implements IndexBuilder {
 			JSONArray tags = (JSONArray) jsonUser.get("tags");
 
 			ticket.setTag(tags.toString());
-			ticketRepository.save(ticket);
+			tickets.add(ticket);
 		}
-
+		ticketRepository.save(tickets);
 		System.out.println("TICKETS ===============> " + ticketRepository.count());
 
 	}
